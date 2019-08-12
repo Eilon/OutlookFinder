@@ -15,6 +15,27 @@ namespace OutlookFinder
 {
     class Program
     {
+        private static readonly string[] SearchItems = new[]
+        {
+            "infant",
+            "baby",
+            "toddler",
+            "kid",
+
+            "toy",
+
+            "bmw",
+            "lego",
+            "iphone",
+            "apple",
+
+            "shelf",
+            "desk",
+            "table",
+            "stool",
+            "dresser",
+        };
+
         static void Main(string[] args)
         {
             Microsoft.Office.Interop.Outlook.Application myApp;
@@ -72,10 +93,11 @@ namespace OutlookFinder
                 //Console.WriteLine("Accounts: {0}", mailItem.Body);
 
                 var existingCategories =
-                    interestingItem.MailInfo.MailItem.Categories
+                    interestingItem.MailInfo.MailItem.Categories?
                     .Split(';', ',')
                     .Select(c => c.Trim())
-                    .Where(c => !string.IsNullOrWhiteSpace(c));
+                    .Where(c => !string.IsNullOrWhiteSpace(c))
+                    ?? Array.Empty<string>();
                 interestingItem.MailInfo.MailItem.Categories = string.Join("; ", interestingItem.FoundSubstrings.Concat(existingCategories).Distinct());
                 interestingItem.MailInfo.MailItem.Save();
             }
@@ -83,8 +105,6 @@ namespace OutlookFinder
             RenderFooter(outputBuilder, SearchItems);
 
             File.WriteAllText("out.html", outputBuilder.ToString());
-
-            Console.ReadLine();
         }
 
         private static void RenderHeader(StringBuilder outputBuilder, string[] searchItems)
@@ -125,25 +145,6 @@ namespace OutlookFinder
     </tbody>
 </table>");
         }
-
-        private static readonly string[] SearchItems = new[]
-        {
-            "baby",
-            "toddler",
-            "kid",
-
-            "toy",
-
-            "bmw",
-            "lego",
-            "iphone",
-            "apple",
-
-            "shelf",
-            "desk",
-            "table",
-            "stool",
-        };
 
         private static string[] FindInterestingMatches(params string[] texts)
         {
