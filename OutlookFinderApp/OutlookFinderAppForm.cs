@@ -55,6 +55,11 @@ namespace OutlookFinderApp
             _folderValueLabel.Text = _folderToSearch;
             _totalEmailsValueLabel.Text = "?";
             _taggedEmailsValueLabel.Text = "?";
+
+            // Adjust the contents of the split container panels because for some reason setting the size in
+            // the designer makes them too large at runtime.
+            _tagResultsListView.Size = new Size(splitContainer1.Panel1.Width, splitContainer1.Panel1.Height) - new Size(10, 36);
+            _logOutputTextBox.Size = new Size(splitContainer1.Panel2.Width, splitContainer1.Panel2.Height) - new Size(10, 36);
         }
     }
 }

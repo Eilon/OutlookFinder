@@ -42,7 +42,12 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label4 = new System.Windows.Forms.Label();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -119,14 +124,15 @@
             // 
             // _logOutputTextBox
             // 
-            this._logOutputTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this._logOutputTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this._logOutputTextBox.Location = new System.Drawing.Point(18, 484);
+            this._logOutputTextBox.Location = new System.Drawing.Point(14, 52);
             this._logOutputTextBox.Multiline = true;
             this._logOutputTextBox.Name = "_logOutputTextBox";
             this._logOutputTextBox.ReadOnly = true;
             this._logOutputTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this._logOutputTextBox.Size = new System.Drawing.Size(1029, 261);
+            this._logOutputTextBox.Size = new System.Drawing.Size(593, 0);
             this._logOutputTextBox.TabIndex = 3;
             this._logOutputTextBox.WordWrap = false;
             // 
@@ -144,9 +150,8 @@
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 456);
+            this.label2.Location = new System.Drawing.Point(9, 13);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(120, 25);
             this.label2.TabIndex = 5;
@@ -163,11 +168,11 @@
             this._tagResultsListView.FullRowSelect = true;
             this._tagResultsListView.GridLines = true;
             this._tagResultsListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this._tagResultsListView.Location = new System.Drawing.Point(18, 156);
+            this._tagResultsListView.Location = new System.Drawing.Point(14, 46);
             this._tagResultsListView.MultiSelect = false;
             this._tagResultsListView.Name = "_tagResultsListView";
             this._tagResultsListView.ShowGroups = false;
-            this._tagResultsListView.Size = new System.Drawing.Size(1029, 266);
+            this._tagResultsListView.Size = new System.Drawing.Size(282, 292);
             this._tagResultsListView.TabIndex = 6;
             this._tagResultsListView.UseCompatibleStateImageBehavior = false;
             this._tagResultsListView.View = System.Windows.Forms.View.Details;
@@ -186,23 +191,47 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 128);
+            this.label4.Location = new System.Drawing.Point(9, 18);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(125, 25);
             this.label4.TabIndex = 7;
             this.label4.Text = "&Tag results:";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer1.Location = new System.Drawing.Point(12, 114);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer1.Panel1.Controls.Add(this.label4);
+            this.splitContainer1.Panel1.Controls.Add(this._tagResultsListView);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer1.Panel2.Controls.Add(this.label2);
+            this.splitContainer1.Panel2.Controls.Add(this._logOutputTextBox);
+            this.splitContainer1.Size = new System.Drawing.Size(1035, 688);
+            this.splitContainer1.SplitterDistance = 516;
+            this.splitContainer1.SplitterWidth = 8;
+            this.splitContainer1.TabIndex = 8;
             // 
             // OutlookFinderAppForm
             // 
             this.AcceptButton = this._runNowButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1059, 757);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this._tagResultsListView);
-            this.Controls.Add(this.label2);
+            this.ClientSize = new System.Drawing.Size(1059, 814);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this._runNowButton);
-            this.Controls.Add(this._logOutputTextBox);
             this.Controls.Add(this.tableLayoutPanel1);
             this.MinimumSize = new System.Drawing.Size(1085, 828);
             this.Name = "OutlookFinderAppForm";
@@ -210,8 +239,13 @@
             this.Load += new System.EventHandler(this.OutlookFinderAppForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -231,6 +265,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label _folderValueLabel;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }
 
