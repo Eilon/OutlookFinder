@@ -1,18 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace OutlookFinderApp
 {
     public partial class OutlookFinderAppForm : Form
     {
+        private static readonly string[] SearchTerms = new[]
+        {
+            "infant",
+            "baby",
+            "toddler",
+            "kid",
+            "stroller",
+
+            "toy",
+
+            "bmw",
+            "lego",
+            "iphone",
+            "apple",
+
+            "shelf",
+            "chair",
+            "desk",
+            "table",
+            "dresser",
+            "patio",
+        };
+
         public OutlookFinderAppForm()
         {
             InitializeComponent();
@@ -25,25 +44,26 @@ namespace OutlookFinderApp
             _totalEmailsValueLabel.Text = "?";
             _taggedEmailsValueLabel.Text = "?";
 
-            var thing = new OutlookFinderThing(_folderToSearch);
-            var results =  thing.DoFind();
+            var thing = new OutlookFinderThing(_folderToSearch, SearchTerms);
+            var results = thing.DoFind();
 
             _totalEmailsValueLabel.Text = results.TotalEmails.ToString();
             _taggedEmailsValueLabel.Text = results.InterestingItems.Count.ToString();
 
-            var allTags = results.InterestingItems
-                .SelectMany(i => i.FoundSubstrings)
-                .Distinct(StringComparer.OrdinalIgnoreCase)
+            var matchesPerTag = SearchTerms
+                .Select(searchTerm =>
+                new
+                {
+                    searchTerm = searchTerm,
+                    count = results.InterestingItems.Count(item => item.FoundSubstrings.Contains(searchTerm, StringComparer.OrdinalIgnoreCase))
+                })
+                .OrderByDescending(tagMatch => tagMatch.count)
                 .ToList();
 
-            var orderedTagCounts = allTags
-                .Select(tag => (tag: tag, count: results.InterestingItems.Count(item => item.FoundSubstrings.Contains(tag, StringComparer.OrdinalIgnoreCase))))
-                .OrderByDescending(tagCount => tagCount.count)
-                .ToList();
 
-            foreach (var (tag, count) in orderedTagCounts)
+            foreach (var tagMatch in matchesPerTag)
             {
-                _tagResultsListView.Items.Add(new ListViewItem(new[] { tag, $"{count}" }));
+                _tagResultsListView.Items.Add(new ListViewItem(new[] { tagMatch.searchTerm, tagMatch.count.ToString(CultureInfo.InvariantCulture) }));
             }
             _logOutputTextBox.Text = results.OutputLog.ToString();
         }

@@ -10,33 +10,14 @@ namespace OutlookFinderApp
 {
     class OutlookFinderThing
     {
-        private static readonly string[] SearchItems = new[]
-        {
-            "infant",
-            "baby",
-            "toddler",
-            "kid",
-
-            "toy",
-
-            "bmw",
-            "lego",
-            "iphone",
-            "apple",
-
-            "shelf",
-            "desk",
-            "table",
-            "stool",
-            "dresser",
-        };
-
-        public OutlookFinderThing(string folderToSearch)
+        public OutlookFinderThing(string folderToSearch, string[] searchTerms)
         {
             FolderToSearch = folderToSearch;
+            SearchTerms = searchTerms;
         }
 
         public string FolderToSearch { get; }
+        public string[] SearchTerms { get; }
 
         public OutlookFindResults DoFind()
         {
@@ -81,7 +62,7 @@ namespace OutlookFinderApp
                 .ToList();
 
             var interestingItems = sellBuyEmails
-                .Select(m => new InterestingMatch(m, FindInterestingMatches(m.Subject, m.Body, m.To)))
+                .Select(m => new InterestingMatch(m, FindInterestingMatches(SearchTerms, m.Subject, m.Body, m.To)))
                 .Where(match => match.FoundSubstrings.Any())
                 .ToList();
 
@@ -107,11 +88,11 @@ namespace OutlookFinderApp
             return results;
         }
 
-        private static string[] FindInterestingMatches(params string[] texts)
+        private static string[] FindInterestingMatches(string[] searchTerms, params string[] texts)
         {
             return texts
                 .Where(text => text != null)
-                .SelectMany(text => SearchItems.Where(searchItem => text.IndexOf(searchItem, StringComparison.OrdinalIgnoreCase) != -1))
+                .SelectMany(text => searchTerms.Where(searchItem => text.IndexOf(searchItem, StringComparison.OrdinalIgnoreCase) != -1))
                 .ToArray();
         }
 
