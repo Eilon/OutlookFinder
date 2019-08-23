@@ -10,13 +10,13 @@ namespace OutlookFinderApp
 {
     class OutlookFinderThing
     {
-        public OutlookFinderThing(string folderToSearch, string[] searchTerms)
+        public OutlookFinderThing(string[] searchFolderPath, string[] searchTerms)
         {
-            FolderToSearch = folderToSearch;
+            SearchFolderPath = searchFolderPath;
             SearchTerms = searchTerms;
         }
 
-        public string FolderToSearch { get; }
+        public string[] SearchFolderPath { get; }
         public string[] SearchTerms { get; }
 
         public OutlookFindResults DoFind()
@@ -24,7 +24,7 @@ namespace OutlookFinderApp
             var results = new OutlookFindResults();
 
             Application myApp;
-            if (Process.GetProcessesByName("OUTLOOK").Count() > 0)
+            if (Process.GetProcessesByName("OUTLOOK").Any())
             {
                 // If so, use the GetActiveObject method to obtain the process and cast it to an Application object.
                 myApp = System.Runtime.InteropServices.Marshal.GetActiveObject("Outlook.Application") as Application;
@@ -38,17 +38,13 @@ namespace OutlookFinderApp
 
             mapiNameSpace.Logon("", "", Missing.Value, Missing.Value);
 
-            //var inboxFolder = mapiNameSpace.GetDefaultFolder(Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
-            //Console.WriteLine("Folders: {0}", inboxFolder.Folders.Count);
+            var searchFolder = GetSearchFolder(mapiNameSpace, SearchFolderPath);
 
-            // TODO: Use FolderToSearch
-            var sellBuyFolder = mapiNameSpace.Folders["elipton@microsoft.com"].Folders["Inbox"].Folders["SellBuy"];
+            results.TotalEmails = searchFolder.Items.Count;
 
-            results.TotalEmails = sellBuyFolder.Items.Count;
-
-            results.OutputLog.AppendLine($"Total items in {sellBuyFolder.FullFolderPath} folder: {sellBuyFolder.Items.Count}");
+            results.OutputLog.AppendLine($"Total items in {searchFolder.FullFolderPath} folder: {searchFolder.Items.Count}");
             results.OutputLog.AppendLine("-----------------");
-            var sellBuyEmails = sellBuyFolder.Items
+            var sellBuyEmails = searchFolder.Items
                 .OfType<MailItem>()
                 .Select(m => new MailInfo(
                     m.SenderEmailAddress,
@@ -86,6 +82,22 @@ namespace OutlookFinderApp
             }
 
             return results;
+        }
+
+        private static MAPIFolder GetSearchFolder(NameSpace rootNamespace, string[] searchFolderPath)
+        {
+            if (searchFolderPath.Length == 0)
+            {
+                throw new ArgumentException("Search folder path must have at least 1 segment.", nameof(searchFolderPath));
+            }
+            var firstSubfolder = rootNamespace.Folders[searchFolderPath[0]];
+            var currentSubfolder = firstSubfolder;
+
+            for (int i = 1; i < searchFolderPath.Length; i++)
+            {
+                currentSubfolder = currentSubfolder.Folders[searchFolderPath[i]];
+            }
+            return currentSubfolder;
         }
 
         private static string[] FindInterestingMatches(string[] searchTerms, params string[] texts)

@@ -85,7 +85,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(417, 96);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(768, 96);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // label5
@@ -132,7 +132,7 @@
             this._logOutputTextBox.Name = "_logOutputTextBox";
             this._logOutputTextBox.ReadOnly = true;
             this._logOutputTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this._logOutputTextBox.Size = new System.Drawing.Size(593, 0);
+            this._logOutputTextBox.Size = new System.Drawing.Size(593, 4);
             this._logOutputTextBox.TabIndex = 3;
             this._logOutputTextBox.WordWrap = false;
             // 
@@ -140,9 +140,9 @@
             // 
             this._runNowButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this._runNowButton.Location = new System.Drawing.Point(485, 30);
+            this._runNowButton.Location = new System.Drawing.Point(792, 30);
             this._runNowButton.Name = "_runNowButton";
-            this._runNowButton.Size = new System.Drawing.Size(562, 78);
+            this._runNowButton.Size = new System.Drawing.Size(255, 78);
             this._runNowButton.TabIndex = 4;
             this._runNowButton.Text = "&Run now";
             this._runNowButton.UseVisualStyleBackColor = true;
@@ -168,11 +168,12 @@
             this._tagResultsListView.FullRowSelect = true;
             this._tagResultsListView.GridLines = true;
             this._tagResultsListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this._tagResultsListView.HideSelection = false;
             this._tagResultsListView.Location = new System.Drawing.Point(14, 46);
             this._tagResultsListView.MultiSelect = false;
             this._tagResultsListView.Name = "_tagResultsListView";
             this._tagResultsListView.ShowGroups = false;
-            this._tagResultsListView.Size = new System.Drawing.Size(282, 292);
+            this._tagResultsListView.Size = new System.Drawing.Size(282, 288);
             this._tagResultsListView.TabIndex = 6;
             this._tagResultsListView.UseCompatibleStateImageBehavior = false;
             this._tagResultsListView.View = System.Windows.Forms.View.Details;
@@ -220,7 +221,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Panel2.Controls.Add(this._logOutputTextBox);
             this.splitContainer1.Size = new System.Drawing.Size(1035, 688);
-            this.splitContainer1.SplitterDistance = 516;
+            this.splitContainer1.SplitterDistance = 512;
             this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.TabIndex = 8;
             // 

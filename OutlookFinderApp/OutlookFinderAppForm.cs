@@ -9,6 +9,12 @@ namespace OutlookFinderApp
 {
     public partial class OutlookFinderAppForm : Form
     {
+        private string[] _searchFolderPath = {
+            "elipton@microsoft.com",
+            "Inbox",
+            "SellBuy",
+        };
+
         private static readonly string[] SearchTerms = new[]
         {
             "infant",
@@ -44,11 +50,11 @@ namespace OutlookFinderApp
             _totalEmailsValueLabel.Text = "?";
             _taggedEmailsValueLabel.Text = "?";
 
-            var thing = new OutlookFinderThing(_folderToSearch, SearchTerms);
+            var thing = new OutlookFinderThing(_searchFolderPath, SearchTerms);
             var results = thing.DoFind();
 
-            _totalEmailsValueLabel.Text = results.TotalEmails.ToString();
-            _taggedEmailsValueLabel.Text = results.InterestingItems.Count.ToString();
+            _totalEmailsValueLabel.Text = results.TotalEmails.ToString(CultureInfo.CurrentCulture);
+            _taggedEmailsValueLabel.Text = results.InterestingItems.Count.ToString(CultureInfo.CurrentCulture);
 
             var matchesPerTag = SearchTerms
                 .Select(searchTerm =>
@@ -63,16 +69,14 @@ namespace OutlookFinderApp
 
             foreach (var tagMatch in matchesPerTag)
             {
-                _tagResultsListView.Items.Add(new ListViewItem(new[] { tagMatch.searchTerm, tagMatch.count.ToString(CultureInfo.InvariantCulture) }));
+                _tagResultsListView.Items.Add(new ListViewItem(new[] { tagMatch.searchTerm, tagMatch.count.ToString(CultureInfo.CurrentCulture) }));
             }
             _logOutputTextBox.Text = results.OutputLog.ToString();
         }
 
-        private string _folderToSearch = "";
-
         private void OutlookFinderAppForm_Load(object sender, EventArgs e)
         {
-            _folderValueLabel.Text = _folderToSearch;
+            _folderValueLabel.Text = string.Join(" / ", _searchFolderPath);
             _totalEmailsValueLabel.Text = "?";
             _taggedEmailsValueLabel.Text = "?";
 
