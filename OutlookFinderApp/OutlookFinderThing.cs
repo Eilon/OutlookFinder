@@ -46,6 +46,7 @@ namespace OutlookFinderApp
             results.OutputLog.AppendLine("-----------------");
             var sellBuyEmails = searchFolder.Items
                 .OfType<MailItem>()
+                .Where(m => m.MessageClass == "IPM.Note") // IPM.Note means an email. See https://docs.microsoft.com/en-us/previous-versions/office/developer/office-2007/bb176446(v=office.12)
                 .Select(m => new MailInfo(
                     m.SenderEmailAddress,
                     m.SenderName,
