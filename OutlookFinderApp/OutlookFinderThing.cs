@@ -10,14 +10,14 @@ namespace OutlookFinderApp
 {
     class OutlookFinderThing
     {
-        public OutlookFinderThing(string[] searchFolderPath, string[] searchTerms)
+        public OutlookFinderThing(UserSettings userSettings)
         {
-            SearchFolderPath = searchFolderPath;
-            SearchTerms = searchTerms;
+            SearchFolderPath = userSettings.SearchFolderPath;
+            SearchTerms = userSettings.SearchTerms;
         }
 
-        public string[] SearchFolderPath { get; }
-        public string[] SearchTerms { get; }
+        public IList<string> SearchFolderPath { get; }
+        public IList<string> SearchTerms { get; }
 
         public OutlookFindResults DoFind()
         {
@@ -85,23 +85,23 @@ namespace OutlookFinderApp
             return results;
         }
 
-        private static MAPIFolder GetSearchFolder(NameSpace rootNamespace, string[] searchFolderPath)
+        private static MAPIFolder GetSearchFolder(NameSpace rootNamespace, IList<string> searchFolderPath)
         {
-            if (searchFolderPath.Length == 0)
+            if (searchFolderPath.Count == 0)
             {
                 throw new ArgumentException("Search folder path must have at least 1 segment.", nameof(searchFolderPath));
             }
             var firstSubfolder = rootNamespace.Folders[searchFolderPath[0]];
             var currentSubfolder = firstSubfolder;
 
-            for (int i = 1; i < searchFolderPath.Length; i++)
+            for (int i = 1; i < searchFolderPath.Count; i++)
             {
                 currentSubfolder = currentSubfolder.Folders[searchFolderPath[i]];
             }
             return currentSubfolder;
         }
 
-        private static string[] FindInterestingMatches(string[] searchTerms, params string[] texts)
+        private static string[] FindInterestingMatches(IList<string> searchTerms, params string[] texts)
         {
             return texts
                 .Where(text => text != null)
@@ -134,7 +134,9 @@ namespace OutlookFinderApp
             FoundSubstrings = foundSubstrings;
         }
 
+#pragma warning disable CA1819 // Properties should not return arrays
         public string[] FoundSubstrings { get; }
+#pragma warning restore CA1819 // Properties should not return arrays
         public MailInfo MailInfo { get; }
     }
 

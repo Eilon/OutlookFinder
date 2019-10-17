@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace OutlookFinderApp
@@ -16,7 +13,9 @@ namespace OutlookFinderApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+#pragma warning disable CA2000 // Dispose objects before losing scope
             Application.Run(new OutlookFinderAppForm());
+#pragma warning restore CA2000 // Dispose objects before losing scope
         }
     }
 }

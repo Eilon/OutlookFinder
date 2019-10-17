@@ -43,6 +43,7 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label4 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this._settingsButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -69,6 +70,8 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -85,7 +88,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(768, 96);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(676, 96);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // label5
@@ -138,8 +141,7 @@
             // 
             // _runNowButton
             // 
-            this._runNowButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this._runNowButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this._runNowButton.Location = new System.Drawing.Point(792, 30);
             this._runNowButton.Name = "_runNowButton";
             this._runNowButton.Size = new System.Drawing.Size(255, 78);
@@ -173,7 +175,7 @@
             this._tagResultsListView.MultiSelect = false;
             this._tagResultsListView.Name = "_tagResultsListView";
             this._tagResultsListView.ShowGroups = false;
-            this._tagResultsListView.Size = new System.Drawing.Size(282, 288);
+            this._tagResultsListView.Size = new System.Drawing.Size(282, 284);
             this._tagResultsListView.TabIndex = 6;
             this._tagResultsListView.UseCompatibleStateImageBehavior = false;
             this._tagResultsListView.View = System.Windows.Forms.View.Details;
@@ -221,9 +223,21 @@
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Panel2.Controls.Add(this._logOutputTextBox);
             this.splitContainer1.Size = new System.Drawing.Size(1035, 688);
-            this.splitContainer1.SplitterDistance = 512;
+            this.splitContainer1.SplitterDistance = 508;
             this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.TabIndex = 8;
+            // 
+            // _settingsButton
+            // 
+            this._settingsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._settingsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._settingsButton.Location = new System.Drawing.Point(700, 38);
+            this._settingsButton.Name = "_settingsButton";
+            this._settingsButton.Size = new System.Drawing.Size(75, 57);
+            this._settingsButton.TabIndex = 9;
+            this._settingsButton.Text = "⚙";
+            this._settingsButton.UseVisualStyleBackColor = true;
+            this._settingsButton.Click += new System.EventHandler(this._settingsButton_Click);
             // 
             // OutlookFinderAppForm
             // 
@@ -231,6 +245,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1059, 814);
+            this.Controls.Add(this._settingsButton);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this._runNowButton);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -267,6 +282,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label _folderValueLabel;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Button _settingsButton;
     }
 }
 
