@@ -67,8 +67,14 @@ namespace OutlookFinderApp
             {
                 results.OutputLog.AppendLine($"{interestingItem.MailInfo.FromName} is selling '{interestingItem.MailInfo.Subject}' on {interestingItem.MailInfo.Received}");
                 results.OutputLog.AppendLine($"\tKeywords: {string.Join(", ", interestingItem.FoundSubstrings)}");
-                results.OutputLog.AppendLine($"\tPrices: {string.Join(", ", FindPrices(interestingItem.MailInfo.Subject).Select(p => $"${p}"))}");
-                results.OutputLog.AppendLine($"\tPrices: {string.Join(", ", FindPrices(interestingItem.MailInfo.Body).Select(p => $"${p}"))}");
+                var distinctSortedPrices =
+                    FindPrices(interestingItem.MailInfo.Subject)
+                    .Concat(FindPrices(interestingItem.MailInfo.Body))
+                    .Distinct()
+                    .OrderByDescending(d => d);
+
+                var pricesString = distinctSortedPrices.Any() ? string.Join(", ", distinctSortedPrices.Select(p => $"${p}")) : "<none>";
+                results.OutputLog.AppendLine($"\tPrices: {pricesString}");
 
                 var existingCategories =
                     interestingItem.MailInfo.MailItem.Categories?
@@ -111,6 +117,10 @@ namespace OutlookFinderApp
 
         private static decimal[] FindPrices(string text)
         {
+            if (text is null)
+            {
+                return Array.Empty<decimal>();
+            }
             var priceRegex = new Regex(@"\$\d+");
             return priceRegex
                 .Matches(text)
