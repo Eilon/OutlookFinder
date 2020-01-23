@@ -22,6 +22,8 @@ namespace OutlookFinderApp
             _logOutputTextBox.Clear();
             _totalEmailsValueLabel.Text = "?";
             _taggedEmailsValueLabel.Text = "?";
+            _scanProgressBar.Value = 0;
+            _scanProgressBar.Maximum = 10;
 
             var userSettings = GetUserSettings();
             if (userSettings == null)
@@ -32,7 +34,23 @@ namespace OutlookFinderApp
             OnRefreshSettings(userSettings);
 
             var thing = new OutlookFinderThing(userSettings);
-            var results = thing.DoFind();
+            var results = thing.DoFind(
+                totalItemsCallback: (int totalItems) =>
+                {
+                    Invoke((MethodInvoker)
+                        (() =>
+                        {
+                            _scanProgressBar.Maximum = totalItems;
+                        }));
+                },
+                processedItemCallback: (int itemsProcessed) =>
+                {
+                    Invoke((MethodInvoker)
+                        (() =>
+                        {
+                            _scanProgressBar.Value = itemsProcessed;
+                        }));
+                });
 
             _totalEmailsValueLabel.Text = results.TotalEmails.ToString(CultureInfo.CurrentCulture);
             _taggedEmailsValueLabel.Text = results.InterestingItems.Count.ToString(CultureInfo.CurrentCulture);

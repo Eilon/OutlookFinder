@@ -19,7 +19,7 @@ namespace OutlookFinderApp
         public IList<string> SearchFolderPath { get; }
         public IList<string> SearchTerms { get; }
 
-        public OutlookFindResults DoFind()
+        public OutlookFindResults DoFind(Action<int> totalItemsCallback, Action<int> processedItemCallback)
         {
             var results = new OutlookFindResults();
 
@@ -62,6 +62,8 @@ namespace OutlookFinderApp
                 .Select(m => new InterestingMatch(m, FindInterestingMatches(SearchTerms, m.Subject, m.Body, m.To)))
                 .Where(match => match.FoundSubstrings.Any())
                 .ToList();
+            totalItemsCallback?.Invoke(interestingItems.Count);
+            var itemsProcessed = 0;
 
             foreach (var interestingItem in interestingItems)
             {
@@ -86,6 +88,7 @@ namespace OutlookFinderApp
                 interestingItem.MailInfo.MailItem.Save();
 
                 results.InterestingItems.Add(interestingItem);
+                processedItemCallback?.Invoke(++itemsProcessed);
             }
 
             return results;

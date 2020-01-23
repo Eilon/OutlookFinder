@@ -44,6 +44,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this._settingsButton = new System.Windows.Forms.Button();
+            this._scanProgressBar = new System.Windows.Forms.ProgressBar();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -175,7 +176,7 @@
             this._tagResultsListView.MultiSelect = false;
             this._tagResultsListView.Name = "_tagResultsListView";
             this._tagResultsListView.ShowGroups = false;
-            this._tagResultsListView.Size = new System.Drawing.Size(282, 284);
+            this._tagResultsListView.Size = new System.Drawing.Size(282, 224);
             this._tagResultsListView.TabIndex = 6;
             this._tagResultsListView.UseCompatibleStateImageBehavior = false;
             this._tagResultsListView.View = System.Windows.Forms.View.Details;
@@ -207,7 +208,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainer1.Location = new System.Drawing.Point(12, 114);
+            this.splitContainer1.Location = new System.Drawing.Point(12, 170);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -222,8 +223,8 @@
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Panel2.Controls.Add(this._logOutputTextBox);
-            this.splitContainer1.Size = new System.Drawing.Size(1035, 688);
-            this.splitContainer1.SplitterDistance = 508;
+            this.splitContainer1.Size = new System.Drawing.Size(1035, 632);
+            this.splitContainer1.SplitterDistance = 448;
             this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.TabIndex = 8;
             // 
@@ -239,12 +240,22 @@
             this._settingsButton.UseVisualStyleBackColor = true;
             this._settingsButton.Click += new System.EventHandler(this._settingsButton_Click);
             // 
+            // _scanProgressBar
+            // 
+            this._scanProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this._scanProgressBar.Location = new System.Drawing.Point(18, 124);
+            this._scanProgressBar.Name = "_scanProgressBar";
+            this._scanProgressBar.Size = new System.Drawing.Size(1029, 40);
+            this._scanProgressBar.TabIndex = 10;
+            // 
             // OutlookFinderAppForm
             // 
             this.AcceptButton = this._runNowButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1059, 814);
+            this.Controls.Add(this._scanProgressBar);
             this.Controls.Add(this._settingsButton);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this._runNowButton);
@@ -283,6 +294,7 @@
         private System.Windows.Forms.Label _folderValueLabel;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button _settingsButton;
+        private System.Windows.Forms.ProgressBar _scanProgressBar;
     }
 }
 
